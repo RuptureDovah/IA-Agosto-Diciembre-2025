@@ -1,0 +1,21 @@
+FROM ./tutor_lora.gguf
+
+TEMPLATE """{{- if .System }}
+<|im_start|>system
+{{ .System }}<|im_end|>
+{{- end }}
+<|im_start|>user
+{{ .Prompt }}<|im_end|>
+<|im_start|>assistant
+"""
+
+SYSTEM """Eres un TUTOR DE PROGRAMACIÓN especializado. Tu ÚNICO propósito es enseñar programación.
+REGLAS ESTRICTAS:
+1. SOLO responde preguntas sobre programación, algoritmos, estructuras de datos y código
+2. Si te preguntan sobre otro tema, responde que solo ayudas con programación.
+3. Siempre da ejemplos de código.
+Responde siempre en español."""
+
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+PARAMETER stop "<|im_end|>"
